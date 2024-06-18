@@ -36,7 +36,7 @@ def scrap(base_url, article, output_file, session_file):
 
     full_url = base_url + article
     try:
-        r = requests.get(full_url, headers={'User-Agent': USER_AGENT})
+        r = requests.get(full_url, headers={'User-Agent': USER_AGENT}, verify=False)
     except requests.exceptions.ConnectionError:
         print("Check your Internet connection")
         input("Press [ENTER] to continue to the next request.")
@@ -85,7 +85,7 @@ def scrap(base_url, article, output_file, session_file):
             text = p.get_text().strip()
             text = parenthesis_regex.sub('', text)
             text = citations_regex.sub('', text)
-            if text:
+            if text.endswith('.'):
                 fout.write(text + '\n\n')  # extra line between paragraphs
 
 
