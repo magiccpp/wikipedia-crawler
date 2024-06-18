@@ -9,7 +9,10 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
+import urllib3
 
+# Suppress only the single InsecureRequestWarning from urllib3 needed
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 DEFAULT_OUTPUT = 'output.txt'
 DEFAULT_INTERVAL = 5.0  # interval between requests (seconds)
@@ -85,6 +88,12 @@ def scrap(base_url, article, output_file, session_file):
             text = p.get_text().strip()
             text = parenthesis_regex.sub('', text)
             text = citations_regex.sub('', text)
+            lines = text.splitlines()
+            
+            # Check if any line in the paragraph is shorter than 10 characters
+            if any(len(line.strip()) < 10 for line in lines):
+                continue  # Skip paragraphs with short lines
+            
             if text.endswith('.'):
                 fout.write(text + '\n\n')  # extra line between paragraphs
 
