@@ -1,0 +1,15 @@
+{
+    "anchors": [
+        "https://en.wikipedia.org/wiki/Mechanical_engineering",
+        "https://en.wikipedia.org/wiki/Manufacturing",
+        "https://en.wikipedia.org/wiki/Material",
+        "https://en.wikipedia.org/wiki/Automotive_industry"
+    ],
+    "embedding-model": "text-embedding-3-small",
+    "api-key": "",
+    "articles": 2000000,
+    "interval": 1,
+    "max-tokens-per-article": 8192,
+    "required-similarity": 0.35,
+    "output-file": "mycorpus.txt"
+}
